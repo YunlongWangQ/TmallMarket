@@ -23,7 +23,7 @@
     fetch('/users')
         .then(response => response.json())
         .then(data => {
-            const tableBody = document.querySelector('#userTable tbody');
+            const tableBody = document.querySelector('#user tbody');
             data.forEach(user => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
