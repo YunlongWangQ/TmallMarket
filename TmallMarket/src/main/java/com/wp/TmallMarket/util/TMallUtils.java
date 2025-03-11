@@ -11,6 +11,7 @@ public class TMallUtils {
         userVo.setName(user.getName());
         userVo.setEmail(user.getEmail());
         userVo.setAddress(user.getAddress());
+        userVo.setAge(user.getAge());
         return userVo;
     }
 
@@ -19,6 +20,7 @@ public class TMallUtils {
         user.setAddress(userVo.getAddress());
         user.setEmail(userVo.getEmail());
         user.setName(userVo.getName());
+        user.setAge(userVo.getAge());
         return user;
     }
 }
