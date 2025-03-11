@@ -5,9 +5,9 @@ spring:
   application:
     name: TmallMarket
   datasource:
-    druid:
-      username: root
-      password: 412824wyl
-      url: jdbc:mysql://localhost:3306/sys?useSSL=false&serverTimezone=UTC
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: 412824wyl
+    url: jdbc:mysql://localhost:3306/sys?useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  resources:
+    static-locations=classpath:/static/,classpath:/public/,classpath:/resources/,classpath:/META-INF/resources/:

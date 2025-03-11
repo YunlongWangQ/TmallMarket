@@ -1,18 +1,41 @@
 package com.wp.TmallMarket.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
+@Table(name = "user")
 public class User {
     @Id
+    @Column
+    @GeneratedValue(strategy = IDENTITY)
     private Integer id;
+    @Column
     private String name;
+    @Column
     private String email;
+    @Column
     private String address;
+    @Column
     private Integer age;
+    @Column
     private String gender;
+    @Column
     private String phone;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 
     public Integer getId() {
         return id;

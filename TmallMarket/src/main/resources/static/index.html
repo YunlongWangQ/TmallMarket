@@ -1,39 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User List</title>
+    <title>用户列表</title>
 </head>
 <body>
-<h1>User List</h1>
-<table id="userTable">
+<h1>用户列表</h1>
+<table>
     <thead>
     <tr>
         <th>ID</th>
-        <th>Name</th>
-        <th>Age</th>
+        <th>姓名</th>
+        <th>年龄</th>
     </tr>
     </thead>
     <tbody>
-
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.age}"></td>
+    </tr>
     </tbody>
 </table>
-
-<script>
-    fetch('/users')
-        .then(response => response.json())
-        .then(data => {
-            const tableBody = document.querySelector('#user tbody');
-            data.forEach(user => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                        <td>${user.id}</td>
-                        <td>${user.name}</td>
-                        <td>${user.age}</td>
-                    `;
-                tableBody.appendChild(row);
-            });
-        });
-</script>
+<a href="/">返回</a>
 </body>
 </html>
