@@ -1,84 +1,72 @@
 package com.wp.TmallMarket.entity;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-@Data
-@Table(name = "user")
-@Getter
-@Setter
+@Entity
 public class User {
     @Id
-    @Column
     private Integer id;
-    @Column
     private String name;
-    @Column
     private String email;
-    @Column
     private String address;
-    @Column
     private Integer age;
-    @Column
     private String gender;
-    @Column
     private String phone;
-//    private Integer user_id;
-//    /**
-//     * 用户名
-//     */
-//    private String user_name;
-//    /**
-//     * 昵称
-//     */
-//    private String user_nickname;
-//    /**
-//     * 密码
-//     */
-//    private String user_password;
-//    /**
-//     * 姓名
-//     */
-//    private String user_realname;
-//    /**
-//     * 性别
-//     */
-//    private Byte user_gender;
-//    /**
-//     * 出生日期
-//     */
-//    private String user_birthday;
-//    /**
-//     * 所在地地址
-//     */
-//    private Address user_address;
-//    /**
-//     * 家乡
-//     */
-//    private Address user_homeplace;
-//    /**
-//     * 用户头像
-//     */
-//    private String user_profile_picture_src;
-//    /**
-//     * 删除标识(1删除 0未删除）
-//     */
-//    private Integer del_flag;
-//    /**
-//     * 评论
-//     */
-//    private List<Review> reviewList;
-//    /**
-//     * 产品订单项
-//     */
-//    private List<ProductOrderItem> productOrderItemList;
-//    /**
-//     * 产品订单
-//     */
-//    private List<ProductOrder> productOrderList;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }
