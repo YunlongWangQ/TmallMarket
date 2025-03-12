@@ -1,95 +1,30 @@
 package com.wp.TmallMarket.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+@Data
 @Entity
-@Table(name = "user")
+@Table(name = User.TableName)
 public class User {
+
+    public static final  String TableName        = "user";
+    /** 用户id */
     @Id
-    @Column
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @Column
+    /** 用户名 */
     private String name;
-    @Column
+    /** 邮箱 */
     private String email;
-    @Column
+    /** 地址 */
     private String address;
-    @Column
+    /** 年龄 */
     private Integer age;
-    @Column
+    /** 性别 */
     private String gender;
-    @Column
+    /** 手机号码 */
     private String phone;
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", age=" + age +
-                ", gender='" + gender + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 }

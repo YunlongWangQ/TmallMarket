@@ -27,4 +27,10 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.save(TMallUtils.Vo2UserConverter(userVo));
         return CollectionUtils.isEmpty(allUsers) ? user.getId() : -1;
     }
+
+    @Override
+    public void deleteUser(Long id)
+    {
+        userRepository.deleteById(id);
+    }
 }
