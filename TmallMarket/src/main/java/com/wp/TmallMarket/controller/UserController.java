@@ -19,6 +19,18 @@ public class UserController {
     private UserService userService;
 
     /**
+     * 功能：登录界面
+     *
+     * @author 王云龙
+     * @date 2025-03-12 19:36
+     * @param2 param2
+     *
+     **/
+    @GetMapping("/")
+    public String showLoginPage() {
+        return "login";
+    }
+    /**
      * 功能：查询所有的user
      *
      * @author 王云龙
