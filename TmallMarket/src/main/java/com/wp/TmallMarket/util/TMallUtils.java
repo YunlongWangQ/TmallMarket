@@ -23,8 +23,4 @@ public class TMallUtils {
         user.setAge(userVo.getAge());
         return user;
     }
-
-    public static String getUsename(){
-        return "admin";
-    }
 }
