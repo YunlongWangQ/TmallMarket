@@ -15,4 +15,6 @@ public interface UserService {
     Long SaveUser(UserVo userVo);
 
     void deleteUser(Long id);
+
+    boolean validateUser(String name, String password);
 }

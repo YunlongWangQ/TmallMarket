@@ -9,7 +9,7 @@ public class StaticResourceConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**")
-				.addResourceLocations("classpath:/static/", "classpath:/public/", "classpath:/resources/", "classpath:/META-INF/resources/");
+		registry.addResourceHandler("/static/**")
+				.addResourceLocations("classpath:/static/");
 	}
 }

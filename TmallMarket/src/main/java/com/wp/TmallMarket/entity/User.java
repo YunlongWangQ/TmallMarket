@@ -27,4 +27,6 @@ public class User {
     private String gender;
     /** 手机号码 */
     private String phone;
+    /** 登录密码 */
+    private String password;
 }

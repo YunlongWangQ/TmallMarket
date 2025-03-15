@@ -94,4 +94,11 @@ public class UserController {
         userService.deleteUser(id);
         return null;
     }
+
+    @PostMapping("/login")
+    private String login(@RequestParam String name, @RequestParam String password, Model model){
+        boolean isExist = userService.validateUser(name, password);
+        model.addAttribute("messsage", isExist? "登录成功" : "登录失败");
+        return isExist ? "userMainPage" : "login";
+    }
 }
