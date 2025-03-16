@@ -12,9 +12,10 @@ import java.util.List;
 public interface UserService {
     public List<User> getAllUsers() ;
 
-    Long SaveUser(UserVo userVo);
+    Long saveUser(UserVo userVo);
 
     void deleteUser(Long id);
 
     boolean validateUser(String name, String password);
+
 }

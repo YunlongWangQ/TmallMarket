@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long SaveUser(UserVo userVo) {
+    public Long saveUser(UserVo userVo) {
         List<User> allUsers = userRepository.findByEmail(userVo.getEmail());
         User user = userRepository.save(TMallUtils.Vo2UserConverter(userVo));
         return CollectionUtils.isEmpty(allUsers) ? user.getId() : -1;

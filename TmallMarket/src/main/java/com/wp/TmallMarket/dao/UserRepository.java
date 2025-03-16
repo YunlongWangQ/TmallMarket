@@ -10,4 +10,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByEmail(String email);
     User findByNameAndPassword(String name, String password);
+
+    @Override
+    <S extends User> List<S> saveAll(Iterable<S> entities);
 }

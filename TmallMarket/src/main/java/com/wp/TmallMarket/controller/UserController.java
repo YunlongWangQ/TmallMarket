@@ -1,5 +1,7 @@
 package com.wp.TmallMarket.controller;
 
+import com.wp.TmallMarket.dao.UserRepository;
+import com.wp.TmallMarket.vo.RegisterInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.wp.TmallMarket.entity.User;
@@ -11,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UserController {
@@ -58,7 +62,7 @@ public class UserController {
      **/
     @PostMapping("/adduser")
     public UserResponse<Long> addNewUser(@RequestBody UserVo userVo){
-        return UserResponse.newSuccessResponse(List.of(userService.SaveUser(userVo)));
+        return UserResponse.newSuccessResponse(List.of(userService.saveUser(userVo)));
     }
 
     /**
@@ -96,15 +100,20 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    private String login(@RequestParam String name, @RequestParam String password, Model model){
-        String s = TMallUtils.sha256("111111");
-        if(s.equals(password)){
-            boolean isExist = userService.validateUser(name, password);
-            model.addAttribute("messsage", isExist? "登录成功" : "登录失败");
-            return isExist ? "userMainPage" : "login";
-        }else{
-            model.addAttribute("messsage", "密码错误");
-            return "login";
-        }
+    private String login(@RequestParam String username, @RequestParam String password){
+        String sha256pwd = TMallUtils.sha256(password);
+        boolean isExist = userService.validateUser(username, sha256pwd);
+        return isExist ? "userMainPage" : "login";
+    }
+
+    @PostMapping("/register")
+    public String register(@RequestBody RegisterInfo registerInfo) {
+        User user = new User();
+        user.setName(registerInfo.getUsername());
+        String sha256pwd = TMallUtils.sha256(registerInfo.getPassword());
+        user.setPassword(sha256pwd);
+        user.setEmail(registerInfo.getEmail());
+        Long l = userService.saveUser(TMallUtils.User2VoConverter(user));
+        return "注册成功，用户名："+l + registerInfo.getUsername();
     }
 }
