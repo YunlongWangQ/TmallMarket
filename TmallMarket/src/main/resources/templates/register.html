@@ -3,25 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>注册页面</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <h1>用户注册</h1>
-<form action="#" th:action="@{/register}" method="post">
-    <label for="regUsername">用户名：</label>
-    <input type="text" id="regUsername" name="username"><br>
-    <label for="regPassword">密码：</label>
-    <input type="password" id="regPassword" name="password"><br>
-    <label for="regPassword">地址：</label>
-    <input type="password" id="regAddress" name="address"><br>
-    <label for="regPassword">邮箱：</label>
-    <input type="password" id="regEmail" name="email"><br>
-    <label for="regPassword">性别：</label>
-    <input type="password" id="regGender" name="gender"><br>
-<!--    <label for="regPassword">出生日期：</label>-->
-<!--    <input type="password" id="regBirthDate" name="birthdate"><br>-->
-    <input type="submit" value="注册">
-</form>
+    <div class="login-container">
+        <div class="form-group">
+            <label>用户名：</label>
+            <input type="text" id="regUsername" name="username" placeholder="请输入用户名" required>
+        </div>
+        <div class="form-group">
+            <label>密码：</label>
+            <input type="password" id="regPassword" name="password" placeholder="请输入密码" required>
+        </div>
+        <div class="form-group">
+            <label>地址：</label>
+            <input type="text" id="regAddress" name="address" placeholder="请输入地址" required>
+        </div>
+        <div class="form-group">
+            <label>邮箱：</label>
+            <input type="text" id="regEmail" name="email" placeholder="请输入邮箱" required>
+        </div>
+        <div class="form-group">
+            <label>性别：</label>
+            <select id="regGender" name="gender">
+                <option value="M">男</option>
+                <option value="F">女</option>
+            </select>
+        </div>
+        <button type="submit" id="registerBtn">注册</button>
+    </div>
 <div id="result"></div>
 <script>
     $(document).ready(function() {
@@ -29,19 +41,17 @@
             var formData = {
                 username: $('#regUsername').val(),
                 password: $('#regPassword').val(),
-                email: $('#regAddress').val(),
-                phone: $('#regEmail').val(),
-                birthdate: $('#regBirthDate').val(),
+                email: $('#regEmail').val(),
+                address: $('#regAddress').val(),
                 gender: $('#regGender').val()
             };
-
             $.ajax({
                 url: '/register',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(formData),
                 success: function(response) {
-                    $('#result').text(response);
+                    window.location.href = '/userMainPage';
                 },
                 error: function() {
                     $('#result').text('请求出错');

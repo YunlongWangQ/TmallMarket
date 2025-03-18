@@ -12,11 +12,7 @@ import com.wp.TmallMarket.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 @Controller
 public class UserController {
     @Autowired
@@ -106,14 +102,24 @@ public class UserController {
         return isExist ? "userMainPage" : "login";
     }
 
+    @GetMapping("/register")
+    public String showRegisterPage() {
+        return "register"; // 返回注册页模板
+    }
     @PostMapping("/register")
-    public String register(@RequestBody RegisterInfo registerInfo) {
+    @ResponseBody
+    public UserResponse register(@RequestBody RegisterInfo registerInfo) {
         User user = new User();
         user.setName(registerInfo.getUsername());
         String sha256pwd = TMallUtils.sha256(registerInfo.getPassword());
         user.setPassword(sha256pwd);
         user.setEmail(registerInfo.getEmail());
         Long l = userService.saveUser(TMallUtils.User2VoConverter(user));
-        return "注册成功，用户名："+l + registerInfo.getUsername();
+        return !Objects.equals(l, Long.valueOf(-1L)) ? UserResponse.newSuccessResponse(List.of("注册成功")):UserResponse.newSuccessResponse(List.of("注册失败"));
+    }
+
+    @GetMapping("/userMainPage")
+    public String showMainPage() {
+        return "userMainPage"; // 对应templates/userMainPage.html
     }
 }
