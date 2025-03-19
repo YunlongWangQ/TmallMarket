@@ -1,16 +1,46 @@
 package com.wp.TmallMarket.vo;
 
-
+import java.util.Date;
 public class UserVo {
-    private String name;
+    private String  name;
+    private String  address;
 
-    private String email;
-
-    private String address;
-
+    private String phone;
     private Integer age;
+    private String  email;
+    private String  gender;
+    private Date    birthday;
+    private String  password;
 
-    private String password;
+    public String getPhone()
+    {
+        return phone;
+    }
+
+    public void setPhone(String phone)
+    {
+        this.phone = phone;
+    }
+
+    public String getGender()
+    {
+        return gender;
+    }
+
+    public void setGender(String gender)
+    {
+        this.gender = gender;
+    }
+
+    public Date getBirthday()
+    {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday)
+    {
+        this.birthday = birthday;
+    }
 
     public String getPassword()
     {

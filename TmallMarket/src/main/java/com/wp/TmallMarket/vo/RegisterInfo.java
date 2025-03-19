@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.util.Date;
 @Data
 @Entity
 public class RegisterInfo {
@@ -13,5 +15,8 @@ public class RegisterInfo {
     private String password;
     private String email;
     private String phone;
-    private Integer age;
+    private Integer   age;
+    private LocalDate birthday;
+    private String address;
+    private String gender;
 }

@@ -12,6 +12,7 @@ import com.wp.TmallMarket.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.*;
 @Controller
 public class UserController {
@@ -114,6 +115,10 @@ public class UserController {
         String sha256pwd = TMallUtils.sha256(registerInfo.getPassword());
         user.setPassword(sha256pwd);
         user.setEmail(registerInfo.getEmail());
+        user.setAge(TMallUtils.getAgeByBirthday(registerInfo.getBirthday()));
+        user.setAddress(registerInfo.getAddress());
+        user.setGender(registerInfo.getGender());
+        user.setPhone(registerInfo.getPhone());
         Long l = userService.saveUser(TMallUtils.User2VoConverter(user));
         return !Objects.equals(l, Long.valueOf(-1L)) ? UserResponse.newSuccessResponse(List.of("注册成功")):UserResponse.newSuccessResponse(List.of("注册失败"));
     }
