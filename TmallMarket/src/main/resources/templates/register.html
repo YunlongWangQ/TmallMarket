@@ -61,7 +61,11 @@
                 contentType: 'application/json',
                 data: JSON.stringify(formData),
                 success: function(response) {
-                    window.location.href = '/userMainPage';
+                    if (response.success) {
+                        localStorage.setItem('username', response.data.username);
+                        localStorage.setItem('password', response.data.password);
+                    }
+                    window.location.href = '/login';
                 },
                 error: function() {
                     $('#result').text('请求出错');

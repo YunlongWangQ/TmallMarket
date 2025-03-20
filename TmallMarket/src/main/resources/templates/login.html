@@ -24,5 +24,18 @@
     </div>
 </form>
 <p>还没有账号？<a th:href="@{/register}">注册用户</a></p>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var username = localStorage.getItem('username');
+        var password = localStorage.getItem('password');
+
+        if (username) {
+            document.getElementById('username').value = username;
+        }
+        if (password) {
+            document.getElementById('password').value = password;
+        }
+    });
+</script>
 </body>
 </html>

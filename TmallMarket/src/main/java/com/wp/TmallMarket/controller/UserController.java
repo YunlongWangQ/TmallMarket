@@ -1,11 +1,11 @@
 package com.wp.TmallMarket.controller;
 
-import com.wp.TmallMarket.dao.UserRepository;
+import javax.servlet.http.HttpSession;
 import com.wp.TmallMarket.entity.Password;
+import com.wp.TmallMarket.response.RegisterResponse;
 import com.wp.TmallMarket.vo.RegisterInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import com.wp.TmallMarket.entity.User;
 import com.wp.TmallMarket.response.UserResponse;
 import com.wp.TmallMarket.service.UserService;
@@ -28,9 +28,20 @@ public class UserController {
      * @date 2025-03-12 19:36
      *
      **/
-    @GetMapping("/")
+    @GetMapping("/login")
     public String showLoginPage() {
         return "login";
+    }
+    /**
+     * 功能：跳转到注册界面
+     *
+     * @author 王云龙
+     * @date 2025-03-20 10:49
+     *
+     **/
+    @GetMapping("/register")
+    public String showRegisterPage() {
+        return "register";
     }
     /**
      * 功能：跳转到主页
@@ -44,17 +55,6 @@ public class UserController {
         return "userMainPage";
     }
 
-    /**
-     * 功能：跳转到注册界面
-     *
-     * @author 王云龙
-     * @date 2025-03-20 10:49
-     *
-     **/
-    @GetMapping("/register")
-    public String showRegisterPage() {
-        return "register";
-    }
     /**
      * 功能：根据id删除对应的user
      *
@@ -83,7 +83,11 @@ public class UserController {
     private String login(@RequestParam String username, @RequestParam String password){
         String sha256pwd = TMallUtils.sha256(password);
         boolean isExist = userService.validateUser(username, sha256pwd);
-        return isExist ? "userMainPage" : "login";
+        if (isExist) {
+            return "userMainPage";
+        } else {
+            return "login";
+        }
     }
     /**
      * 功能：注册功能
@@ -96,7 +100,7 @@ public class UserController {
      **/
     @PostMapping("/register")
     @ResponseBody
-    public UserResponse register(@RequestBody RegisterInfo registerInfo) {
+    public RegisterResponse register(@RequestBody RegisterInfo registerInfo) {
         User user = new User();
         BeanUtils.copyProperties(registerInfo,user);
         String sha256pwd = TMallUtils.sha256(registerInfo.getPassword());
@@ -104,7 +108,15 @@ public class UserController {
         user.setAge(TMallUtils.getAgeByBirthday(registerInfo.getBirthday()));
         Long userId = userService.saveUser(user);
         savePwd(userId,registerInfo.getPassword());
-        return !Objects.equals(userId, Long.valueOf(-1L)) ? UserResponse.newSuccessResponse(List.of("注册成功")):UserResponse.newSuccessResponse(List.of("注册失败"));
+        boolean isSuccess = !Objects.equals(userId, Long.valueOf(-1L));
+        if(isSuccess){
+            Map<String,String> data = new HashMap<>();
+            data.put("username", registerInfo.getName());
+            data.put("password", registerInfo.getPassword());
+            return RegisterResponse.newRegSResponse(data);
+        }else{
+            return RegisterResponse.newRegFResponse("注册失败");
+        }
     }
 
     /**

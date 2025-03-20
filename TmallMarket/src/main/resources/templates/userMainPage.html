@@ -6,6 +6,15 @@
 </head>
 <body>
 <h1>欢迎来用户主页面。。。。。。</h1>
-<p th:text="${message}"></p>
+<p id="usernameDisplay"></p>
+<script>
+    // 获取本地存储中的用户名
+    var username = localStorage.getItem('username');
+
+    // 如果用户名存在，则展示在页面上
+    if (username) {
+        document.getElementById('usernameDisplay').innerHTML = '欢迎你，' + username;
+    }
+</script>
 </body>
 </html>
