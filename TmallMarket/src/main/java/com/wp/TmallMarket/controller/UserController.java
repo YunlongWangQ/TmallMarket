@@ -1,7 +1,9 @@
 package com.wp.TmallMarket.controller;
 
 import com.wp.TmallMarket.dao.UserRepository;
+import com.wp.TmallMarket.entity.Password;
 import com.wp.TmallMarket.vo.RegisterInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.wp.TmallMarket.entity.User;
@@ -24,7 +26,6 @@ public class UserController {
      *
      * @author 王云龙
      * @date 2025-03-12 19:36
-     * @param2 param2
      *
      **/
     @GetMapping("/")
@@ -32,54 +33,27 @@ public class UserController {
         return "login";
     }
     /**
-     * 功能：查询所有的user
+     * 功能：跳转到主页
      *
      * @author 王云龙
-     * @date 2025-03-12 15:18
+     * @date 2025-03-20 10:49
      *
      **/
-    @GetMapping("/users")
-    public UserResponse<UserVo> getAllUsers() {
-        List<User> allUsers = userService.getAllUsers();
-        List<UserVo> userVos = new ArrayList<>();
-        for(User user : allUsers){
-            userVos.add(TMallUtils.User2VoConverter(user));
-        }
-        return UserResponse.newSuccessResponse(userVos);
+    @GetMapping("/userMainPage")
+    public String showMainPage() {
+        return "userMainPage";
     }
 
     /**
-     * 功能：新增user
+     * 功能：跳转到注册界面
      *
      * @author 王云龙
-     * @date 2025-03-12 15:17
-     *
-     * @param1 userVo
+     * @date 2025-03-20 10:49
      *
      **/
-    @PostMapping("/adduser")
-    public UserResponse<Long> addNewUser(@RequestBody UserVo userVo){
-        return UserResponse.newSuccessResponse(List.of(userService.saveUser(userVo)));
-    }
-
-    /**
-     * 功能：查询所有的user
-     *
-     * @author 王云龙
-     * @date 2025-03-12 15:17
-     *
-     * @param1 model
-     *
-     **/
-    @GetMapping("/user-list")
-    public String showAllUsers(Model model){
-        List<User> allUsers = userService.getAllUsers();
-        List<UserVo> userVos = new ArrayList<>();
-        for(User user : allUsers){
-            userVos.add(TMallUtils.User2VoConverter(user));
-        }
-        model.addAttribute("alluser", userVos);
-        return "users";
+    @GetMapping("/register")
+    public String showRegisterPage() {
+        return "register";
     }
     /**
      * 功能：根据id删除对应的user
@@ -95,36 +69,61 @@ public class UserController {
         userService.deleteUser(id);
         return null;
     }
-
+    /**
+     * 功能：登录验证，登陆成功则跳转到用户主界面；否则刷新当前页
+     *
+     * @author 王云龙
+     * @date 2025-03-20 10:51
+     * 
+     * @param1 username
+     * @param2 password
+     *
+     **/
     @PostMapping("/login")
     private String login(@RequestParam String username, @RequestParam String password){
         String sha256pwd = TMallUtils.sha256(password);
         boolean isExist = userService.validateUser(username, sha256pwd);
         return isExist ? "userMainPage" : "login";
     }
-
-    @GetMapping("/register")
-    public String showRegisterPage() {
-        return "register"; // 返回注册页模板
-    }
+    /**
+     * 功能：注册功能
+     *
+     * @author 王云龙
+     * @date 2025-03-20 10:52
+     * 
+     * @param1 registerInfo
+     *
+     **/
     @PostMapping("/register")
     @ResponseBody
     public UserResponse register(@RequestBody RegisterInfo registerInfo) {
         User user = new User();
-        user.setName(registerInfo.getUsername());
+        BeanUtils.copyProperties(registerInfo,user);
         String sha256pwd = TMallUtils.sha256(registerInfo.getPassword());
         user.setPassword(sha256pwd);
-        user.setEmail(registerInfo.getEmail());
         user.setAge(TMallUtils.getAgeByBirthday(registerInfo.getBirthday()));
-        user.setAddress(registerInfo.getAddress());
-        user.setGender(registerInfo.getGender());
-        user.setPhone(registerInfo.getPhone());
-        Long l = userService.saveUser(TMallUtils.User2VoConverter(user));
-        return !Objects.equals(l, Long.valueOf(-1L)) ? UserResponse.newSuccessResponse(List.of("注册成功")):UserResponse.newSuccessResponse(List.of("注册失败"));
+        Long userId = userService.saveUser(user);
+        savePwd(userId,registerInfo.getPassword());
+        return !Objects.equals(userId, Long.valueOf(-1L)) ? UserResponse.newSuccessResponse(List.of("注册成功")):UserResponse.newSuccessResponse(List.of("注册失败"));
     }
 
-    @GetMapping("/userMainPage")
-    public String showMainPage() {
-        return "userMainPage"; // 对应templates/userMainPage.html
+    /**
+     * 功能：保存密码到密码表
+     *
+     * @author 王云龙
+     * @date 2025-03-20 10:52
+     * 
+     * @param1 userId
+     * @param2 original_pwd
+     *
+     **/
+    private void savePwd(Long userId,String original_pwd)
+    {
+        Password password = new Password();
+        password.setOriginal_pwd(original_pwd);
+        password.setEncrypted_password(TMallUtils.sha256(original_pwd));
+        password.setId(userId);
+        userService.savePwd(List.of(password));
     }
+
 }

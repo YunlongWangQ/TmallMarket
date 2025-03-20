@@ -52,7 +52,16 @@ public class TMallUtils {
             throw new RuntimeException(e);
         }
 	}
-
+    /**
+     * 功能：根据生日计算年龄
+     *
+     * @author 王云龙
+     * @date 2025-03-20 10:05
+     *
+     * @param1 param1
+     * @param2 param2
+     *
+     **/
     public static Integer getAgeByBirthday(LocalDate birthDate) {
         LocalDate currentDate = LocalDate.now();
         // 先计算年份差值
@@ -64,6 +73,5 @@ public class TMallUtils {
                 && currentDate.getDayOfMonth() >= birthDate.getDayOfMonth());
 
         return hasBirthdayOccurred ? age : age - 1;
-
     }
 }

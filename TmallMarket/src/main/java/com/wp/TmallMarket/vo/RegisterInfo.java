@@ -11,7 +11,7 @@ import java.util.Date;
 public class RegisterInfo {
     @Id
     private Long id;
-    private String username;
+    private String name;
     private String password;
     private String email;
     private String phone;

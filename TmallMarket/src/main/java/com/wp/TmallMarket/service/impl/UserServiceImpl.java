@@ -1,6 +1,8 @@
 package com.wp.TmallMarket.service.impl;
 
+import com.wp.TmallMarket.dao.PassWordRepository;
 import com.wp.TmallMarket.dao.UserRepository;
+import com.wp.TmallMarket.entity.Password;
 import com.wp.TmallMarket.entity.User;
 import com.wp.TmallMarket.service.UserService;
 import com.wp.TmallMarket.util.TMallUtils;
@@ -16,16 +18,18 @@ public class UserServiceImpl implements UserService {
 
     @Autowired(required=false)
     private UserRepository userRepository;
+
+    @Autowired
+    private PassWordRepository pwdRepository;
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
-    public Long saveUser(UserVo userVo) {
-        List<User> allUsers = userRepository.findByEmail(userVo.getEmail());
-        User user = userRepository.save(TMallUtils.Vo2UserConverter(userVo));
-        return CollectionUtils.isEmpty(allUsers) ? user.getId() : -1;
+    public Long saveUser(User user) {
+        User save = userRepository.save(user);
+        return user.getId();
     }
 
     @Override
@@ -39,5 +43,11 @@ public class UserServiceImpl implements UserService {
     {
         User user = userRepository.findByNameAndPassword(name, password);
         return user != null;
+    }
+
+    @Override
+    public void savePwd(List<Password> passwords)
+    {
+        pwdRepository.saveAll(passwords);
     }
 }

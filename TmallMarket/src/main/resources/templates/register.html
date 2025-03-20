@@ -11,7 +11,7 @@
     <div class="login-container">
         <div class="form-group">
             <label>用户名：</label>
-            <input type="text" id="regUsername" name="username" placeholder="请输入用户名" required>
+            <input type="text" id="regUsername" name="name" placeholder="请输入用户名" required>
         </div>
         <div class="form-group">
             <label>密码：</label>
@@ -47,7 +47,7 @@
     $(document).ready(function() {
         $('#registerBtn').click(function() {
             var formData = {
-                username: $('#regUsername').val(),
+                name: $('#regUsername').val(),
                 password: $('#regPassword').val(),
                 email: $('#regEmail').val(),
                 address: $('#regAddress').val(),
