@@ -15,6 +15,9 @@
     if (username) {
         document.getElementById('usernameDisplay').innerHTML = '欢迎你，' + username;
     }
+    // 清除本地存储中的数据
+    localStorage.removeItem('username');
+    localStorage.removeItem('password');
 </script>
 </body>
 </html>
