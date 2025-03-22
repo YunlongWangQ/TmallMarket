@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社区管理系统 - 帮助</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .header a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <a href="#" th:href="@{/}">主页</a>
+</div>
+<div class="content">
+    <h1>社区管理系统帮助</h1>
+    <h2>系统介绍</h2>
+    <p>社区管理系统是一个专门为社区管理设计的综合性平台，旨在帮助社区管理员高效地管理社区的各种事务。通过该系统，管理员可以方便地进行居民信息管理、公告发布、活动组织等操作。</p>
+    <h2>系统操作指导</h2>
+    <h3>登录与注册</h3>
+    <p>首次使用系统时，你需要点击主页的“注册”按钮进行注册。注册成功后，使用注册的账号和密码登录系统。</p>
+    <h3>居民信息管理</h3>
+    <p>登录系统后，在菜单栏中找到“居民信息管理”选项。你可以在这里添加、修改和删除居民信息。点击“添加居民”按钮，填写居民的基本信息，然后点击“保存”即可完成添加操作。</p>
+    <h3>公告发布</h3>
+    <p>若要发布社区公告，点击菜单栏中的“公告发布”选项。在公告编辑页面，输入公告标题和内容，选择公告发布时间，然后点击“发布”按钮。</p>
+    <h3>活动组织</h3>
+    <p>对于社区活动的组织，点击“活动组织”选项。在活动创建页面，填写活动的详细信息，如活动名称、时间、地点等，然后点击“创建活动”按钮。</p>
+</div>
+</body>
+
+</html>

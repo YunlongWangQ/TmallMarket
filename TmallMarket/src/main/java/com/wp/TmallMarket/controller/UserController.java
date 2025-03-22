@@ -22,6 +22,28 @@ public class UserController {
     private UserService userService;
 
     /**
+     * 功能：首页
+     *
+     * @author 王云龙
+     * @date 2025-03-12 19:36
+     *
+     **/
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
+    /**
+     * 功能：帮助文档界面
+     *
+     * @author 王云龙
+     * @date 2025-03-12 19:36
+     *
+     **/
+    @GetMapping("/help")
+    public String help() {
+        return "help";
+    }
+    /**
      * 功能：登录界面
      *
      * @author 王云龙

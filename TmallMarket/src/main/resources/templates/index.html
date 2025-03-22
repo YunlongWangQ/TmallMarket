@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>社区管理系统 - 首页</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+</head>
+<body>
+<div class="top-bar">
+    <a href="#" th:href="@{/help}">帮助</a>
+    <a href="#" id="loginLink">登录</a>
+</div>
+<div class="main-content">
+    <h1>欢迎来到社区管理系统</h1>
+    <p>在这里，你可以管理社区的各种事务。</p>
+</div>
+
+<!-- 登录弹窗 -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>登录</h2>
+        <form>
+            <label for="username">用户名:</label>
+            <input type="text" id="username" name="username"><br>
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password"><br>
+            <input type="submit" value="登录">
+        </form>
+        <p>还没有账号？<a th:href="@{/register}">注册用户</a></p>
+    </div>
+</div>
+
+<script>
+    // 获取元素
+    const loginLink = document.getElementById('loginLink');
+    const loginModal = document.getElementById('loginModal');
+    const closeBtn = document.getElementsByClassName('close')[0];
+
+    // 点击登录链接显示弹窗
+    loginLink.onclick = function () {
+        loginModal.style.display = "block";
+    }
+
+    // 点击关闭按钮隐藏弹窗
+    closeBtn.onclick = function () {
+        loginModal.style.display = "none";
+    }
+
+    // 点击弹窗外部隐藏弹窗
+    window.onclick = function (event) {
+        if (event.target == loginModal) {
+            loginModal.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>
